@@ -26,7 +26,8 @@ make-request-internal = (config, method, params, cb)->
     err, model <- post config.host, req .timeout({ deadline: 60000 }).end
     return cb err if err?
     speed[method] = if speed[method]? then speed[method].slice(-100) else []
-    speed[method].push moment.utc!.diff(moment.utc(start-time, "YYYY-MM-DDTHH:mm:ss.SSS"))
+    ms = moment.utc!.diff(moment.utc(start-time, "YYYY-MM-DDTHH:mm:ss.SSS"))
+    speed[method].push Math.round(Math.round(ms) / 10) / 100
     err <- db.put "speed/#{method}", speed[method]
     return cb err if err?
     err <- db.put "last-call/#{method}", moment.utc!.format("YYYY-MM-DDTHH:mm:ss.SSS")
