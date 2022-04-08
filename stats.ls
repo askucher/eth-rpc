@@ -38,8 +38,8 @@ build-chart = (name, cb)->
     err, data <- db.get "speed/#{name}"
     return cb err if err?
     s0 = new Array (data.length)
-    for (i = 0; i < data.length; i++)
-        s0[i] = 15 * Math.sin ([data[i]] * ((Math.PI * 4) / s0.length))
+    for (i = 0 to i < data.length; i++)
+        s0[i] = 15 * Math.sin (i * ((Math.PI * 4) / s0.length))
     cb null, asciichart.plot s0
 
 err, eth_blockNumber  <- build-chart \eth_blockNumber
