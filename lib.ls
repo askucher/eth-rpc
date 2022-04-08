@@ -54,7 +54,7 @@ web3-get-transaction-receipt = (config, hash, cb)->
 
 web3-get-block-number = (config, number, cb)->
     return cb "expected number, got #{number}" if typeof! number isnt \Number
-    hex = '0x' + number.to-string 16
+    hex = \0x + number.to-string 16
     make-request config , \eth_getBlockByNumber , [hex, no], cb
 
 web3-get-block-number-with-cache = (config, number, cb)->
@@ -82,14 +82,11 @@ export precache-blocks = (config, number-start, increment, cb)->
     precache-blocks config, (number-start + increment), increment, cb
 
 
-
-
-
 get-next-index = (config, name, cb)->
     err, db <- get-db config
     return cb err if err?
     err, number-guess <- db.get name
-    return cb err if err? and err?not-found isnt 
+    return cb err if err? and err?not-found isnt yes
     
     number =
         | err?not-found is yes => 0
