@@ -37,10 +37,7 @@ table.push [percent-known, percent-filled, 100, (100 / info.total * info.availab
 build-chart = (name, cb)->
     err, data <- db.get "speed/#{name}"
     return cb err if err?
-    s0 = new Array (120)
-    for (i = 0; i < s0.length; i++)
-        s0[i] = 15 * Math.sin (i * ((Math.PI * 4) / s0.length))
-    cb null, asciichart.plot(s0)
+    cb null, data
 
 err, eth_blockNumber  <- build-chart \eth_blockNumber
 return cb err if err?
