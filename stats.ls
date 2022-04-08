@@ -30,7 +30,7 @@ return cb err if err?
 table = new Table { head : ['Known Block', 'Filled Block', 'Latest Block', 'Disk Space'], colWidths : [20, 20, 20, 20] }
 
 table.push [known-block, filled-block, latest-block, (info.available / 1024 / 1024)]
-table.push [percent-known, percent-filled, 100, (100 / info.total * info.available)]
+table.push [percent-known, percent-filled, 100, (100 / info.total * info.available)].map(-> it + ' %')
 
 cb null, table.toString!
 
