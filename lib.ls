@@ -13,21 +13,23 @@ try-parse = (text, cb)->
 get-body = (model, cb)->
     try-parse model.text, cb
 
+speed = {}
+
 make-request-internal = (config, method, params, cb)->
     err, db <- get-db config 
     return cb err if err?
     make-request.id = make-request.id ? 1
     make-request.id += 2
     req =  { jsonrpc : \2.0 , method , params , id : make-request.id }
-    err <- db.put "speed/stop/#{method}", moment.utc!.format("YYYY-MM-DDTHH:mm:ss.SSS")
     return cb err if err?
+    start-time = moment.utc!.format("YYYY-MM-DDTHH:mm:ss.SSS")
     err, model <- post config.host, req .timeout({ deadline: 60000 }).end
     return cb err if err?
-    err, saved-time <- db.get "speed/stop/#{method}"
+    speed[method] = speed[method].slice(speed[method].length - 1000, 1000) ? []
+    speed.push moment.utc!.diff(moment.utc(start-time, "YYYY-MM-DDTHH:mm:ss.SSS"))
+    err <- db.push "speed/#{method}", speed
     return cb err if err?
-    speed = moment.utc!.diff(moment.utc(saved-time, "YYYY-MM-DDTHH:mm:ss.SSS"))
-    err <- db.put "speed/#{method}", speed
-    console.log method, (speed / 1000) + ' sec'
+    err <- db.push "last-call/#{method}", moment.utc!.format("YYYY-MM-DDTHH:mm:ss.SSS")
     return cb err if err?
     err, body <- get-body model
     return cb err if err?
