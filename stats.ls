@@ -48,9 +48,12 @@ return cb err if err?
 err, eth_getBlockByNumber  <- build-chart \eth_getBlockByNumber
 return cb err if err?
 
+console.log table.toString!
+console.log eth_blockNumber
+console.log eth_getTransactionReceipt
+console.log eth_getBlockByNumber
 
-
-cb null, [table.toString!, eth_blockNumber, eth_getTransactionReceipt, eth_getBlockByNumber].join("\n\n")
+cb null
 
 
 
