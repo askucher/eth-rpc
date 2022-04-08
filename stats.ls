@@ -49,7 +49,6 @@ build-chart = (name, cb)->
     console.log '\n'
     console.log (counter[name] * avg) / 60 / 60 / 24 + ' days till end'
     console.log '\n'
-    console.log '\n'
     cb null
 
 console.log '\n'
