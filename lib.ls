@@ -27,7 +27,7 @@ make-request-internal = (config, method, params, cb)->
     return cb err if err?
     speed[method] = speed[method].slice(speed[method].length - 1000, 1000) ? []
     speed.push moment.utc!.diff(moment.utc(start-time, "YYYY-MM-DDTHH:mm:ss.SSS"))
-    err <- db.push "speed/#{method}", speed
+    err <- db.push "speed/#{method}", speed[method]
     return cb err if err?
     err <- db.push "last-call/#{method}", moment.utc!.format("YYYY-MM-DDTHH:mm:ss.SSS")
     return cb err if err?
