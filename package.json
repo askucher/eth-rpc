@@ -23,7 +23,8 @@
     "sync_blocks": "lsc run_block_fetcher.ls",
     "sync_transactions": "lsc run_transaction_fetcher.ls",
     "rpc": "lsc run_rpc.ls",
-    "precache" : "lsc run_precache.ls"
+    "follow" : "lsc run_follow.ls",
+    "reverse" : "lsc run_reverse.ls"
   },
   "author": "",
   "license": "ISC"
