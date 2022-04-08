@@ -70,15 +70,14 @@ web3-get-block-number-with-cache = (config, number, cb)->
     err <- db.put "blocks/#{number}" , block-data
     cb null, block-data
 
-export precache-blocks = (config, number-start, number-end, cb)->
-    return cb "done" if number-start >= number-end
-    console.log number-start
+export precache-blocks = (config, number-start, cb)->
     err, block-data <- web3-get-block-number-with-cache config, number-start
-    return cb err if err?
+    console.log err if err?
+    return precache-blocks config, number-start, cb if err?
     <- set-immediate
     err <- fill-block-transactions-one-by-one config, block-data.transactions
-    return cb err if err?
-    precache-blocks config, (number-start + 1), number-end, cb
+    return precache-blocks config, number-start, cb if err?
+    precache-blocks config, (number-start + 1), cb
 
 
 
