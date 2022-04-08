@@ -32,12 +32,14 @@ parse-json = (data, cb)->
 init-domain-db = (domain, cb)->
     err, db <- make-db
     get = (name, cb)->
+        return cb "name cannot be null" if not name?
         err, value <- db.get "#{domain}/#{name}"
         return cb err if err?
         err, model <- parse-json value 
         return cb err if err?
         cb null, model
     put = (name, value, cb)->
+        return cb "name cannot be null" if not name?
         try 
             str = JSON.stringify value
             db.put "#{domain}/#{name}", str, cb
