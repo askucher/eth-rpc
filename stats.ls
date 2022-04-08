@@ -34,10 +34,12 @@ table.push [known-block, filled-block, latest-block, parse-int(info.available / 
 table.push [percent-known, percent-filled, 100, (100 / info.total * info.available)].map(-> it + ' %')
 
 
+sum = (x,y)-> x + y 
 build-chart = (name, cb)->
     err, data <- db.get "speed/#{name}"
     return cb err if err?
-    avg = data.reduce((x,y )-> x + y , 0) / data.length
+    
+    avg = data.reduce(sum, 0) / data.length
     console.log "SPEED of #{name} MS (#{avg} avg)" 
     console.log '----------'
     console.log asciichart.plot data , { height: 10 }
