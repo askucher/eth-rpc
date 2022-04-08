@@ -53,6 +53,7 @@ web3-get-transaction-receipt = (config, hash, cb)->
     make-request config , \eth_getTransactionReceipt , [hash], cb
 
 web3-get-block-number = (config, number, cb)->
+    return cb "expected number, got #{number}" if typeof! number isnt \Number
     hex = '0x' + number.to-string 16
     make-request config , \eth_getBlockByNumber , [hex, no], cb
 
