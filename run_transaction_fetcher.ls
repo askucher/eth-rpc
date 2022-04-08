@@ -4,5 +4,4 @@ require! {
     \./cb.ls
 }
 
-
 load-and-save-transactions config, cb
