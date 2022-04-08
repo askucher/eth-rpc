@@ -64,7 +64,6 @@ web3-get-block-number-with-cache = (config, number, cb)->
     return cb null, block-data if block-data?
     err, block-data <- web3-get-block-number config, number
     return cb err if err?
-    console.log err, block-data
     err, isFinalized <- check-block-finalized config, block-data
     return cb err if err?
     return cb "block #{number} is not finalized" if isFinalized is no 
