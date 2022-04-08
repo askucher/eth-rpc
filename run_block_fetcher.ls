@@ -1,7 +1,8 @@
 require! {
     \./lib.ls : { load-and-save-blocks }
+    \./config.json
 }
 
 
-err <- load-and-save-blocks { db: 'velas', host: "https://evmexplorer.velas.com/rpc" }
+err <- load-and-save-blocks config
 console.log 'exit', err

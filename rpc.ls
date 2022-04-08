@@ -34,7 +34,7 @@ proxify-request = (config, body, cb)->
     err, data <- make-request config , body.method , body.params
     return cb err if err?
     deadline = moment.utc!.add( \5 , \seconds ).unix!
-    err, cache <- db.put "cache/#{hash}", { data , deadline }
+    err <- db.put "cache/#{hash}", { data , deadline }
     return cb err if err?
     cb null, data
 
@@ -62,5 +62,6 @@ export init-app = (config, cb)->
         return res.status(400).send("#{err}") if err?
         res.send data
     express.listen config.port
-    cb "exit"
+    cb null
 
+init-app

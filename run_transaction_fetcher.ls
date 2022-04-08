@@ -1,7 +1,8 @@
 require! {
     \./lib.ls : { load-and-save-transactions }
+    \./config.json
 }
 
 
-err <- load-and-save-transactions { db: 'velas', host: "https://evmexplorer.velas.com/rpc" }
+err <- load-and-save-transactions config
 console.log 'exit', err
