@@ -39,9 +39,6 @@ build-chart = (name, cb)->
     return cb err if err?
     cb null, data
 
-err, eth_blockNumber  <- build-chart \eth_blockNumber
-return cb err if err?
-
 err, eth_getTransactionReceipt  <- build-chart \eth_getTransactionReceipt
 return cb err if err?
 
@@ -49,8 +46,7 @@ err, eth_getBlockByNumber  <- build-chart \eth_getBlockByNumber
 return cb err if err?
 
 #console.log table.toString!
-console.log eth_blockNumber
-#console.log eth_getTransactionReceipt
+console.log eth_getTransactionReceipt
 #console.log eth_getBlockByNumber
 
 cb null
