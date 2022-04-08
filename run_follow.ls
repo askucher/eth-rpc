@@ -8,4 +8,4 @@ host = 'http://15.235.43.12:8899'
 
 #host = 'https://evmarchive.mainnet.velas.com'
 
-precache-blocks { ...config, host }, 30000000, 30266878, cb
+precache-blocks { ...config, host }, 30000000, 1, cb
