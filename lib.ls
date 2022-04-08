@@ -73,9 +73,11 @@ web3-get-block-number-with-cache = (config, number, cb)->
 export precache-blocks = (config, number-start, number-end, cb)->
     return cb "done" if number-start >= number-end
     console.log number-start
-    err <- web3-get-block-number-with-cache config, number-start
+    err, block-data <- web3-get-block-number-with-cache config, number-start
     return cb err if err?
     <- set-immediate
+    err <- fill-block-transactions-one-by-one config, block-data.transactions
+    return cb err if err?
     precache-blocks config, (number-start + 1), number-end, cb
 
 
