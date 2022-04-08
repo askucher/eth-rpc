@@ -98,7 +98,7 @@ get-next-index = (config, name, cb)->
 check-block-finalized = (config, block, cb)->
     return cb "not support chain #{config.db}" if config.db isnt \velas
     # just skip null blocks for now
-    return cb null, true, if block is null
+    return cb null, true if typeof! block isnt \Object
     return cb null, true if block.isFinalized is yes 
     cb null, no
 
