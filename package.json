@@ -22,7 +22,8 @@
     "db": "lsc run_db_srv.ls",
     "sync_blocks": "lsc run_block_fetcher.ls",
     "sync_transactions": "lsc run_transaction_fetcher.ls",
-    "rpc": "lsc run_rpc.ls"
+    "rpc": "lsc run_rpc.ls",
+    "precache" : "lsc run_precache.ls"
   },
   "author": "",
   "license": "ISC"
