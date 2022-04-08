@@ -71,6 +71,7 @@ web3-get-block-number-with-cache = (config, number, cb)->
     cb null, block-data
 
 export precache-blocks = (config, number-start, cb)->
+    console.log number-start
     err, block-data <- web3-get-block-number-with-cache config, number-start
     console.log err if err?
     return precache-blocks config, number-start, cb if err?
