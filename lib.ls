@@ -79,7 +79,7 @@ export precache-blocks = (config, number-start, increment, cb)->
     <- set-immediate
     err <- fill-block-transactions-one-by-one config, block-data.transactions
     return precache-blocks config, number-start, increment, cb if err?
-    precache-blocks config, (number-start + increment), cb
+    precache-blocks config, (number-start + increment), increment, cb
 
 
 
