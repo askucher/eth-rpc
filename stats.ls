@@ -37,19 +37,18 @@ table.push [percent-known, percent-filled, 100, (100 / info.total * info.availab
 build-chart = (name, cb)->
     err, data <- db.get "speed/#{name}"
     return cb err if err?
-    cb null, asciichart.plot data , { height: 10 }
+    console.log 'SPEED of ', name
+    console.log '----------'
+    console.log asciichart.plot data , { height: 10 }
+    console.log '\n'
+    console.log '\n'
 
-err, eth_getTransactionReceipt  <- build-chart \eth_getTransactionReceipt
-return cb err if err?
+<- build-chart \eth_getTransactionReceipt
 
-err, eth_getBlockByNumber  <- build-chart \eth_getBlockByNumber
-return cb err if err?
+<- build-chart \eth_getBlockByNumber
 
-#console.log table.toString!
-console.log eth_getTransactionReceipt
-#console.log eth_getBlockByNumber
 
-cb null
+cb null, table.toString()
 
 
 
