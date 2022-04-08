@@ -38,7 +38,7 @@ build-chart = (name, cb)->
     err, data <- db.get "speed/#{name}"
     return cb err if err?
     s0 = new Array (data.length)
-    for (var i = 0; i < data.length; i++)
+    for (i = 0; i < data.length; i++)
         s0[i] = 15 * Math.sin ([data[i]] * ((Math.PI * 4) / s0.length))
     cb null, asciichart.plot s0
 
