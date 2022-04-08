@@ -38,8 +38,11 @@ init-domain-db = (domain, cb)->
         return cb err if err?
         cb null, model
     put = (name, value, cb)->
-        str = JSON.stringify value
-        db.put "#{domain}/#{name}", str, cb
+        try 
+            str = JSON.stringify value
+            db.put "#{domain}/#{name}", str, cb
+        catch err 
+            return cb "put #{domain}/#{name} - err #{err}"
     cb null, { get, put }
 
 get-or-init-db = (config, cb)->
