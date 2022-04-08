@@ -37,7 +37,7 @@ table.push [percent-known, percent-filled, 100, (100 / info.total * info.availab
 build-chart = (name, cb)->
     err, data <- db.get "speed/#{name}"
     return cb err if err?
-    cb null, asciichart.plot data
+    cb null, asciichart.plot ( data / 1000)
 
 err, eth_getTransactionReceipt  <- build-chart \eth_getTransactionReceipt
 return cb err if err?
