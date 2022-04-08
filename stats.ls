@@ -48,8 +48,8 @@ return cb err if err?
 err, eth_getBlockByNumber  <- build-chart \eth_getBlockByNumber
 return cb err if err?
 
-console.log table.toString!
-#console.log eth_blockNumber
+#console.log table.toString!
+console.log eth_blockNumber
 #console.log eth_getTransactionReceipt
 #console.log eth_getBlockByNumber
 
