@@ -44,6 +44,8 @@ build-chart = (name, cb)->
     console.log '\n'
     cb null
 
+console.log '\n'
+
 <- build-chart \eth_getTransactionReceipt
 
 <- build-chart \eth_getBlockByNumber
