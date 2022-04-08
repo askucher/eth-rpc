@@ -56,12 +56,38 @@ web3-get-block-number = (config, number, cb)->
     hex = '0x' + number.to-string 16
     make-request config , \eth_getBlockByNumber , [hex, no], cb
 
+web3-get-block-number-with-cache = (config, number, cb)->
+    err, db <- get-db config 
+    return cb err if err?
+    err, block-data <- db.get "blocks/#{number}"
+    return cb err if err? and err?not-found isnt yes
+    return cb null, block-data if block-data?
+    err, block-data <- web3-get-block-number config, number
+    return cb err if err?
+    err, isFinalized <- check-block-finalized config, block-data
+    return cb err if err?
+    return cb "block #{number} is not finalized" if isFinalized is no 
+    err <- db.put "blocks/#{number}" , block-data
+    cb null, block-data
+
+export precache-blocks = (config, number-start, number-end, cb)->
+    return cb "done" if number-start >= number-end
+    console.log number-start
+    err <- web3-get-block-number-with-cache config, number-start
+    return cb err if err?
+    <- set-immediate
+    precache-blocks config, (number-start + 1), number-end, cb
+
+
+
+
 
 get-next-index = (config, name, cb)->
     err, db <- get-db config
     return cb err if err?
     err, number-guess <- db.get name
-    return cb err if err? and err?not-found isnt yes
+    return cb err if err? and err?not-found isnt 
+    
     number =
         | err?not-found is yes => 0
         | _ => number-guess + 1   
@@ -75,24 +101,23 @@ check-block-finalized = (config, block, cb)->
     cb null, no
 
 
+
 export load-and-save-blocks = (config, cb)->
     err, db <- get-db config
     return cb err if err?
     err, number <- get-next-index config, \blocks/number
     return cb err if err?
     #console.log number 
-    err, block-data <- web3-get-block-number config, number
+    err, block-data <- web3-get-block-number-with-cache config, number
     #console.log err, block-data
     return cb err if err?
-    err, isFinalized <- check-block-finalized config, block-data
-    return cb err if err?
-    return cb "block #{number} is not finalized" if isFinalized is no 
     err <- db.put "blocks/#{number}", block-data
     return cb err if err?
     err <- db.put \blocks/number , number
     return cb err if err?
     <- set-immediate
     load-and-save-blocks config, cb
+
 
 fill-tx = (config, tx, cb)->
     return cb "expected tx" if typeof! tx isnt \String
