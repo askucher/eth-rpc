@@ -7,8 +7,6 @@ require! {
     \moment
 }
 
-
-
 eth_getTransactionReceipt = (config, body, cb)->
     err, db <- get-db config 
     return cb err if err?
@@ -17,9 +15,8 @@ eth_getTransactionReceipt = (config, body, cb)->
     return cb err if err?
     cb null, data
 
-
 eth_getBlockByNumber = (config, body, cb)->
-    err, db <- get-db config 
+    err, db <- get-db config
     return cb err if err?
     number = parseInt(body.params.0, 16)
     err, data <- db.get "blocks/#{number}"
@@ -36,7 +33,7 @@ proxify-request = (config, body, cb)->
     return cb null, cache.data if cache? and cache.deadline < moment.utc!.unix!
     err, data <- make-request config , body.method , body.params
     return cb err if err?
-    deadline = moment.utc!.add('5', 'seconds').unix!
+    deadline = moment.utc!.add( \5 , \seconds ).unix!
     err, cache <- db.put "cache/#{hash}", { data , deadline }
     return cb err if err?
     cb null, data
