@@ -1,0 +1,24 @@
+{
+  "name": "fetcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.17.3",
+    "level-rocksdb": "^5.0.0",
+    "levelup": "^5.1.1",
+    "moment": "^2.29.2",
+    "multileveldown": "^5.0.1",
+    "sha256": "^0.2.0",
+    "superagent": "^7.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "db": "lsc run_db_srv.ls",
+    "sync_blocks": "lsc run_block_fetcher.ls",
+    "sync_transactions": "lsc run_transaction_fetcher.ls"
+  },
+  "author": "",
+  "license": "ISC"
+}
