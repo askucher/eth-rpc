@@ -46,8 +46,8 @@ build-chart = (name, cb)->
     console.log "SPEED of #{name} MS (#{avg} avg)" 
     console.log '----------'
     console.log asciichart.plot data , { height: 10 }
-    if counter[name]? 
-        console.log counter[name] * avg ' second till end'
+    console.log '\n'
+    console.log counter[name] * avg ' second till end'
     console.log '\n'
     console.log '\n'
     cb null
