@@ -33,6 +33,9 @@ table = new Table { head : ['Known Block', 'Filled Block', 'Latest Block', 'Disk
 table.push [known-block, filled-block, latest-block, parse-int(info.available / 1024 / 1024) + ' GB']
 table.push [percent-known, percent-filled, 100, (100 / info.total * info.available)].map(-> it + ' %')
 
+counter =
+    eth_getTransactionReceipt : (latest-block - filled-block)
+    eth_getBlockByNumber : (latest-block - known-block)
 
 sum = (x,y)-> x + y 
 build-chart = (name, cb)->
@@ -43,6 +46,8 @@ build-chart = (name, cb)->
     console.log "SPEED of #{name} MS (#{avg} avg)" 
     console.log '----------'
     console.log asciichart.plot data , { height: 10 }
+    if counter[name]? 
+        console.log counter[name] * avg ' second till end'
     console.log '\n'
     console.log '\n'
     cb null
@@ -53,8 +58,14 @@ console.log '\n'
 
 <- build-chart \eth_getBlockByNumber
 
+console.log table.toString()
 
-cb null, table.toString()
+
+
+cb null
+
+
+
 
 
 
