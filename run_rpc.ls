@@ -1,8 +1,8 @@
 require! {
     \./rpc.ls : { init-app }
     \./config.json
+    \./cb.ls
 }
 
 
-err <- init-app config
-console.log 'exit', err
+init-app config, cb

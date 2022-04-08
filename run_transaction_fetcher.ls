@@ -1,8 +1,8 @@
 require! {
     \./lib.ls : { load-and-save-transactions }
     \./config.json
+    \./cb.ls
 }
 
 
-err <- load-and-save-transactions config
-console.log 'exit', err
+load-and-save-transactions config, cb

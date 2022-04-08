@@ -121,7 +121,8 @@ export load-and-save-transactions = (config, cb)->
     return cb err if err?
     err <- db.put \blocks/filled/number , fill-number
     return cb err if err?
-    cb null
+    <- set-immediate 
+    load-and-save-transactions config, cb
 
 # to mark used
 load-and-save-transactions

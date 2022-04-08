@@ -38,8 +38,6 @@ proxify-request = (config, body, cb)->
     return cb err if err?
     cb null, data
 
-
-
 methods = { eth_getTransactionReceipt, eth_getBlockByNumber }
 
 execute-request  = (config, body, cb)->
