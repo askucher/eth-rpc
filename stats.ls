@@ -5,6 +5,7 @@ require! {
     \./cb.ls
     \diskusage : { check }
     \cli-table : Table
+    \asciichart
 
 }
 
@@ -32,7 +33,24 @@ table = new Table { head : ['Known Block', 'Filled Block', 'Latest Block', 'Disk
 table.push [known-block, filled-block, latest-block, parse-int(info.available / 1024 / 1024) + ' GB']
 table.push [percent-known, percent-filled, 100, (100 / info.total * info.available)].map(-> it + ' %')
 
-cb null, table.toString!
+
+build-chart = (name, cb)->
+    err, data <- db.get "speed/#{name}"
+    return cb err if err?
+    cb null, asciichart.plot data
+
+err, eth_blockNumber  <- build-chart \eth_blockNumber
+return cb err if err?
+
+err, eth_getTransactionReceipt  <- build-chart \eth_getTransactionReceipt
+return cb err if err?
+
+err, eth_getBlockByNumber  <- build-chart \eth_getBlockByNumber
+return cb err if err?
+
+
+
+cb null, [table.toString!, eth_blockNumber, eth_getTransactionReceipt, eth_getBlockByNumber].join("\n\n")
 
 
 
