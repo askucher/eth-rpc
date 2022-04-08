@@ -47,7 +47,7 @@ build-chart = (name, cb)->
     console.log '----------'
     console.log asciichart.plot data , { height: 10 }
     console.log '\n'
-    console.log counter[name] * avg ' second till end'
+    console.log counter[name] * avg + ' second till end'
     console.log '\n'
     console.log '\n'
     cb null
