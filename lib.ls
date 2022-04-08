@@ -72,13 +72,13 @@ web3-get-block-number-with-cache = (config, number, cb)->
     cb null, block-data
 
 export precache-blocks = (config, number-start, increment, cb)->
-    console.log number-start    
+    console.log number-start, increment
     err, block-data <- web3-get-block-number-with-cache config, number-start
     console.log err if err?
-    return precache-blocks config, number-start, cb if err?
+    return precache-blocks config, number-start, increment, cb if err?
     <- set-immediate
     err <- fill-block-transactions-one-by-one config, block-data.transactions
-    return precache-blocks config, number-start, cb if err?
+    return precache-blocks config, number-start, increment, cb if err?
     precache-blocks config, (number-start + increment), cb
 
 
