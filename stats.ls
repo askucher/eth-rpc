@@ -37,7 +37,7 @@ table.push [percent-known, percent-filled, 100, (100 / info.total * info.availab
 build-chart = (name, cb)->
     err, data <- db.get "speed/#{name}"
     return cb err if err?
-    console.log 'SPEED of ', name
+    console.log "SPEED of #{name} MS"
     console.log '----------'
     console.log asciichart.plot data , { height: 10 }
     console.log '\n'
