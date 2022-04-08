@@ -4,4 +4,8 @@ require! {
     \./cb.ls
 }
 
-precache-blocks { ...config, host: "https://evmarchive.mainnet.velas.com" }, 30000000, 30266878, cb
+host = 'http://15.235.43.12:8899'
+
+#host = 'https://evmarchive.mainnet.velas.com'
+
+precache-blocks { ...config, host }, 30000000, 30266878, cb
