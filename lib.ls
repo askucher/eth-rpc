@@ -64,6 +64,7 @@ web3-get-block-number-with-cache = (config, number, cb)->
     return cb null, block-data if block-data?
     err, block-data <- web3-get-block-number config, number
     return cb err if err?
+    console.log err, block-data
     err, isFinalized <- check-block-finalized config, block-data
     return cb err if err?
     return cb "block #{number} is not finalized" if isFinalized is no 
@@ -98,7 +99,7 @@ get-next-index = (config, name, cb)->
 check-block-finalized = (config, block, cb)->
     return cb "not support chain #{config.db}" if config.db isnt \velas
     # just skip null blocks for now
-    return cb null, true if typeof! block isnt \Object
+    return cb null, true if block is null
     return cb null, true if block.isFinalized is yes 
     cb null, no
 
