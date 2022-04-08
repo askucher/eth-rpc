@@ -42,6 +42,7 @@ build-chart = (name, cb)->
     console.log asciichart.plot data , { height: 10 }
     console.log '\n'
     console.log '\n'
+    cb null
 
 <- build-chart \eth_getTransactionReceipt
 
