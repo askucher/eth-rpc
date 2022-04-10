@@ -109,6 +109,7 @@ export precache-blocks = (config, number-start, increment, cb)->
     console.log err if err?
     return precache-blocks config, number-start, increment, cb if err?
     <- set-immediate
+    return precache-blocks config, (number-start + increment), increment, cb if block-data is null
     err <- fill-block-transactions-one-by-one config, block-data.transactions
     return precache-blocks config, number-start, increment, cb if err?
     precache-blocks config, (number-start + increment), increment, cb
