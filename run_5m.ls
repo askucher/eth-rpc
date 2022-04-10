@@ -19,5 +19,5 @@ start = 5000000
 for i of list
     start = (i * 100000) + start
     http = "socks://#{login}:#{password}@#{list[i]}:#{socks5_port}"
-    console.log 'run', address, start, list[i]
+    console.log 'run', start, list[i]
     run-cacher http, start
