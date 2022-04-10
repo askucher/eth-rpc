@@ -31,6 +31,7 @@ make-proxy-post = (config, req, cb)->
     #.set("Proxy-Authorization", "Basic #{auth}")
     err, model <- post(config.host, req).proxy(config.proxy.address).timeout({ deadline: 60000 }).end
     return cb err if err?
+    console.log typeof! model
     cb null, model
 
 make-post = (config, req, cb)->
