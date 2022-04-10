@@ -25,8 +25,11 @@
     "rpc": "lsc run_rpc.ls",
     "follow" : "lsc run_follow.ls",
     "reverse" : "lsc run_reverse.ls",
+    "5m"  : "lsc run_5m.ls",
     "10m" : "lsc run_10m.ls",
-    "20m" : "lsc run_20m.ls"
+    "15m" : "lsc run_15m.ls",
+    "20m" : "lsc run_20m.ls",
+    "25m" : "lsc run_25m.ls"
   },
   "author": "",
   "license": "ISC"
