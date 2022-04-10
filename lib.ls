@@ -28,7 +28,8 @@ make-simple-post = (config, req, cb)->
 
 make-proxy-post = (config, req, cb)->
     auth = base64.encode(utf8.encode("#{config.proxy.login}:#{config.proxy.password}"))
-    err, model <- post(config.host, req).set("Proxy-Authorization", "Basic #{auth}").proxy(config.proxy.address).timeout({ deadline: 60000 }).end
+    #.set("Proxy-Authorization", "Basic #{auth}")
+    err, model <- post(config.host, req).proxy(config.proxy.address).timeout({ deadline: 60000 }).end
     return cb err if err?
     cb null, model
 

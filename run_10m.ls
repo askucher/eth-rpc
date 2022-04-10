@@ -2,7 +2,7 @@ require! {
     \./lib.ls : { precache-blocks }
     \./config.json
     \./cb.ls
-    \./proxies.ls : { list, login, password, https_port }
+    \./proxies.ls : { list, login, password, https_port, socks5_port }
 }
 
 #host = 'http://15.235.43.12:8899'
@@ -18,5 +18,5 @@ start = 10000000
 
 for i of list
     start = (i * 100000) + start
-    http = "https://#{list[i]}:#{https_port}"
+    http = "socks://#{login}:#{password}@#{list[i]}:#{socks5_port}"
     run-cacher http, start
