@@ -25,4 +25,4 @@ run-index = (index)->
 #for i of list
 #    run-index index
 
-run-index index 0
+run-index 0
