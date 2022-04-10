@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "asciichart": "^1.5.25",
+    "base-64": "^1.0.0",
     "body-parser": "^1.20.0",
     "chalk": "^2.0.0",
     "cli-table": "^0.3.11",
@@ -15,7 +16,9 @@
     "moment": "^2.29.2",
     "multileveldown": "^5.0.1",
     "sha256": "^0.2.0",
-    "superagent": "^7.1.2"
+    "superagent": "^7.1.2",
+    "superagent-proxy": "^3.0.0",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -23,13 +26,13 @@
     "sync_blocks": "lsc run_block_fetcher.ls",
     "sync_transactions": "lsc run_transaction_fetcher.ls",
     "rpc": "lsc run_rpc.ls",
-    "follow" : "lsc run_follow.ls",
-    "reverse" : "lsc run_reverse.ls",
-    "5m"  : "lsc run_5m.ls",
-    "10m" : "lsc run_10m.ls",
-    "15m" : "lsc run_15m.ls",
-    "20m" : "lsc run_20m.ls",
-    "25m" : "lsc run_25m.ls"
+    "follow": "lsc run_follow.ls",
+    "reverse": "lsc run_reverse.ls",
+    "5m": "lsc run_5m.ls",
+    "10m": "lsc run_10m.ls",
+    "15m": "lsc run_15m.ls",
+    "20m": "lsc run_20m.ls",
+    "25m": "lsc run_25m.ls"
   },
   "author": "",
   "license": "ISC"

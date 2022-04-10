@@ -1,8 +1,14 @@
 require! {
-    \superagent : { post }
+    \superagent
     \./get-db.ls
     \moment
+    \base-64 : base64
+    \utf8
 }
+
+require( \superagent-proxy )(superagent)
+
+{ post, get } = superagent
 
 try-parse = (text, cb)->
     try
@@ -15,6 +21,21 @@ get-body = (model, cb)->
 
 speed = {}
 
+make-simple-post = (config, req, cb)->
+    err, model <- post(config.host, req).timeout({ deadline: 60000 }).end
+    return cb err if err?
+    cb null, model
+
+make-proxy-post = (config, req, cb)->
+    auth = base64.encode(utf8.encode("#{config.proxy.login}:#{config.proxy.password}"))
+    err, model <- post(config.host, req).set("Proxy-Authorization", "Basic #{auth}").proxy(config.proxy.address).timeout({ deadline: 60000 }).end
+    return cb err if err?
+    cb null, model
+
+make-post = (config, req, cb)->
+    make-proxy-post config, req, cb if config.proxy?
+    make-simple-post config, req, cb
+
 make-request-internal = (config, method, params, cb)->
     err, db <- get-db config 
     return cb err if err?
@@ -23,7 +44,7 @@ make-request-internal = (config, method, params, cb)->
     req =  { jsonrpc : \2.0 , method , params , id : make-request.id }
     return cb err if err?
     start-time = moment.utc!.format("YYYY-MM-DDTHH:mm:ss.SSS")
-    err, model <- post config.host, req .timeout({ deadline: 60000 }).end
+    err, model <- make-post config, req
     return cb err if err?
     speed[method] = if speed[method]? then speed[method].slice(-100) else []
     ms = moment.utc!.diff(moment.utc(start-time, "YYYY-MM-DDTHH:mm:ss.SSS"))
@@ -56,6 +77,17 @@ web3-get-block-number = (config, number, cb)->
     return cb "expected number, got #{number}" if typeof! number isnt \Number
     hex = \0x + number.to-string 16
     make-request config , \eth_getBlockByNumber , [hex, no], cb
+
+#proxy =
+#    login: \Selastegno
+#    password: \T9v5WgU
+#    address: \http://188.214.235.82:45785
+
+#auth = base64.encode(utf8.encode("#{proxy.login}:#{proxy.password}"))
+
+#get("http://api.ipify.org?format=json").proxy(proxy.address).timeout({ deadline: 60000 }).set("Proxy-Authorization", "Basic #{auth}").end(console~log)
+
+
 
 web3-get-block-number-with-cache = (config, number, cb)->
     err, db <- get-db config 
