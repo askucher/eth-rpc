@@ -23,4 +23,4 @@ run-index = (i, start)->
 #for i of list
 #    run-index index, 5000000
 
-run-index 0, 5000000
+run-index 15, 5000000
