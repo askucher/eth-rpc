@@ -24,7 +24,9 @@
     "sync_transactions": "lsc run_transaction_fetcher.ls",
     "rpc": "lsc run_rpc.ls",
     "follow" : "lsc run_follow.ls",
-    "reverse" : "lsc run_reverse.ls"
+    "reverse" : "lsc run_reverse.ls",
+    "10m" : "lsc run_10m.ls",
+    "20m" : "lsc run_20m.ls"
   },
   "author": "",
   "license": "ISC"
