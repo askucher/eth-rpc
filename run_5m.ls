@@ -13,16 +13,14 @@ run-cacher = (address, start)->
     proxy = { login, password, address: address }
     precache-blocks { ...config, host, proxy }, start, 1, console.log
 
-start = 5000000
 
-
-run-index = (i)->
+run-index = (i, start)->
     start = (i * 100000) + start
     http = "socks://#{login}:#{password}@#{list[i]}:#{socks5_port}"
-    console.log '[-]', http
+    console.log '[-]', http, start
     run-cacher http, start
 
 #for i of list
-#    run-index index
+#    run-index index, 5000000
 
-run-index 0
+run-index 0, 5000000
