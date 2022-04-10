@@ -31,7 +31,6 @@ make-proxy-post = (config, req, cb)->
     #.set("Proxy-Authorization", "Basic #{auth}")
     err, model <- post(config.host, req).proxy(config.proxy.address).timeout({ deadline: 60000 }).end
     return cb err if err?
-    console.log typeof! model
     cb null, model
 
 make-post = (config, req, cb)->
@@ -108,7 +107,7 @@ web3-get-block-number-with-cache = (config, number, cb)->
 export precache-blocks = (config, number-start, increment, cb)->
     console.log number-start, increment
     err, block-data <- web3-get-block-number-with-cache config, number-start
-    console.log err if err?
+    console.log "err" if err?
     return precache-blocks config, number-start, increment, cb if err?
     <- set-immediate
     return precache-blocks config, (number-start + increment), increment, cb if block-data is null
