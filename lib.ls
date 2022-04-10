@@ -113,7 +113,7 @@ export precache-blocks = (config, number-start, increment, cb)->
     return precache-blocks config, number-start, increment, cb if err?
     return precache-blocks config, next, increment, cb if block-data is null
     err <- fill-block-transactions-one-by-one config, block-data.transactions
-    console.log "fill err" if err?
+    console.log "fill err", err if err?
     return precache-blocks config, number-start, increment, cb if err?
     precache-blocks config, next, increment, cb
 
