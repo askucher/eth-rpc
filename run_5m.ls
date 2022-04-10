@@ -10,7 +10,7 @@ require! {
 host = \https://evmexplorer.velas.com/rpc
 
 run-cacher = (address, start)->
-    console.log 'run', address, start
+    
     proxy = { login, password, address: address }
     precache-blocks { ...config, host, proxy }, start, 1, console.log
 
@@ -19,4 +19,5 @@ start = 5000000
 for i of list
     start = (i * 100000) + start
     http = "socks://#{login}:#{password}@#{list[i]}:#{socks5_port}"
+    console.log 'run', address, start, list[i]
     run-cacher http, start
