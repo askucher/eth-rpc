@@ -15,8 +15,14 @@ run-cacher = (address, start)->
 
 start = 5000000
 
-for i of list
+
+run-index = (index)->
     start = (i * 100000) + start
     http = "socks://#{login}:#{password}@#{list[i]}:#{socks5_port}"
     console.log '[-]', http
     run-cacher http, start
+
+#for i of list
+#    run-index index
+
+run-index index 0
